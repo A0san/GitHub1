@@ -26,18 +26,14 @@
     <script>
         const canvas = document.getElementById("myCanvas");  //idの名前は一致させる
         //document(このファイル)からIDが"myCanvas"になっている要素(Element)を取得
-        const ctx = canvas.getContext("2d");
-        //canvasから2D描画用のコンテキストを取得
+        const ctx = canvas.getContext("2d");        //canvasから2D描画用のコンテキストを取得
 
 
         //赤い四角を描画(beginPathとclosePathで囲む)
         ctx.beginPath();
-        ctx.rect(20, 40, 50, 50);
-        //rect(左,上,横幅,縦幅)  rectは四角形を描画する関数
-        ctx.fillStyle = "#FF0000";
-        //塗りつぶしの色を設定
-        ctx.fill();
-        //fill関数を呼び出してfillstyleで指定した色の設定を実行させて出力させる。fillstyleだけでは色は出ない
+        ctx.rect(20, 40, 50, 50);       //rect(左,上,横幅,縦幅)  rectは四角形を描画する関数
+        ctx.fillStyle = "#FF0000";    //塗りつぶしの色を設定
+        ctx.fill();       //fill関数を呼び出してfillstyleで指定した色の設定を実行させて出力させる。fillstyleだけでは色は出ない
         ctx.closePath();
 
 
@@ -53,11 +49,32 @@
 
         ctx.beginPath();
         ctx.rect(160, 10, 100, 40);
-        ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-        //線描画の色を設定(半透明Alphaの指定がある)
-        ctx.stroke();
-        //図形の輪郭を描画
+        ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";    //線描画の色を設定(半透明Alphaの指定がある)
+        ctx.stroke();     //図形の輪郭を描画
         ctx.closePath();
+
+         //変数Variableの宣言(declaration)(初期の場所を設定)
+        let x =  canvas.width/ 2;  
+        let y = canvas.height -30;  
+        let dx = 2;  //xの差分
+        let dy = -2;
+
+        function drawBall(){
+            ctx.beginPath()
+            ctx.arc(x, y, 10,0, Math.PI * 2)
+            ctx.fillStyle = "#0095DD"
+            ctx.fill()
+            ctx.closePath()
+        }
+
+        // 関数(function)の定義 (definition)
+        function draw(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);   //矩形(くけい)の範囲を消去(左,上,幅,高さ)
+            drawBall();     //関数の呼び出し・実行
+            x += dx
+            y += dy
+        }
+        setInterval(draw, 10);  //draw関数を一定間隔(10ミリ秒)で実行し続ける
 
 
     </script>
@@ -70,3 +87,9 @@
 </body>
 
 </html>
+
+コードを整える
+リファクタリング(refactering)
+
+手続き形(procedual)：上から1行ずつ実行される
+イベント駆動型(event driven)：イベントが起こるとそこに対するプログラムが実行される
